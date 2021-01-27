@@ -4,17 +4,17 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
+            <div class="float-left">
                 <h2>Cities of {{$country_name}}</h2>
                 <h2>Cities amount: {{$cities->total()}}</h2>
             </div>
-            <div class="pull-right">
-            <div class="form-group">
-                <a class="btn btn-primary" href="{{ action('CityController@index') }} " title="Go back"> Back to all citiest</a>
-            </div>
-            <div class="form-group">
-                <a class="btn btn-primary" href="{{ action('CountryController@index') }}">Back to all countries</a>
-            </div>
+            <div class="float-right">
+                <div class="form-group">
+                    <a class="btn btn-primary" href="{{ action('CityController@index') }} " title="Go back"> Back to all citiest</a>
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-primary" href="{{ action('CountryController@index') }}">Back to all countries</a>
+                </div>
             </div>
         </div>
     </div>

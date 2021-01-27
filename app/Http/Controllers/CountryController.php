@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Country;
+use App\City;
 use Illuminate\Http\Request;
 
 class CountryController extends Controller
@@ -86,5 +87,29 @@ class CountryController extends Controller
     public function destroy(Country $country)
     {
         //
+    }
+
+
+    /**
+     * 
+     * Search country
+     *
+     * 
+     */
+    public function search()
+    {
+        $request = $_GET['request'];
+        $countries = Country::query()
+        ->where('Name', 'LIKE', "{$request}%")
+        ->orWhere('Continent', 'LIKE', "%{request}%")
+        ->orderBy('Name')->orderBy('Continent')
+        ->get();
+
+        $cities = City::query()
+        ->where('Name', 'LIKE', "{$request}%")
+        ->orderBy('Name')->orderBy('CountryCode')
+        ->get();
+
+        return view('countries.searchCountry', ['countries'=>$countries, 'cities'=>$cities,'request'=>$request]);
     }
 }

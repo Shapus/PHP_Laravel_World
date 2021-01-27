@@ -19,6 +19,11 @@ Route::get('/', function () {
 });
 
 Route::get('/countries', 'CountryController@index');
+Route::get('/countries/search', 'CountryController@search');
 Route::get('/countries/detail/{country}', 'CountryController@show');
 Route::get('/cities', 'CityController@index');
 Route::get('/cities/detail/{county_code}', 'CityController@show');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
