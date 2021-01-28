@@ -14,7 +14,7 @@
                             <strong>Name</strong> - {{ $country->Name }}
                         </div>
                         <div class="form-group">
-                            <strong>Continent</strong> - {{$country->Continent}}
+                            <strong>Continent</strong> - {{$country->ContinentName}}
                         </div>
                         <div class="form-group">
                             <strong>Region</strong> - {{$country->Region}}

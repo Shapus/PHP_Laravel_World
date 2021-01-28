@@ -12,7 +12,7 @@ class Country extends Model
     protected $fillable = [
         'Code',
         'Name',
-        'Continent',
+        'ContinentId',
         'Region',
         'IndepYear',
         'Population',

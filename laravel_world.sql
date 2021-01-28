@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Янв 26 2021 г., 14:15
+-- Время создания: Янв 28 2021 г., 14:16
 -- Версия сервера: 10.4.13-MariaDB
 -- Версия PHP: 7.2.31
 
@@ -1259,13 +1259,36 @@ INSERT INTO `city` (`ID`, `Name`, `CountryCode`, `Population`, `created_at`) VAL
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `continent`
+--
+
+CREATE TABLE `continent` (
+  `Id` int(11) NOT NULL,
+  `ContinentName` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Дамп данных таблицы `continent`
+--
+
+INSERT INTO `continent` (`Id`, `ContinentName`) VALUES
+(1, 'Asia'),
+(2, 'Europe'),
+(3, 'North America'),
+(4, 'Africa'),
+(5, 'Antarctica'),
+(6, 'South America');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `country`
 --
 
 CREATE TABLE `country` (
   `Code` char(3) NOT NULL DEFAULT '',
   `Name` char(52) NOT NULL DEFAULT '',
-  `Continent` enum('Asia','Europe','North America','Africa','Oceania','Antarctica','South America') NOT NULL DEFAULT 'Asia',
+  `ContinentId` int(11) NOT NULL,
   `Region` char(26) NOT NULL DEFAULT '',
   `IndepYear` smallint(6) DEFAULT NULL,
   `Population` int(11) NOT NULL,
@@ -1280,23 +1303,27 @@ CREATE TABLE `country` (
 -- Дамп данных таблицы `country`
 --
 
-INSERT INTO `country` (`Code`, `Name`, `Continent`, `Region`, `IndepYear`, `Population`, `GovernmentForm`, `HeadOfState`, `Code2`, `created_at`, `map_src`) VALUES
-('BEL', 'Belgium', 'Europe', 'Western Europe', 1830, 10239000, 'Constitutional Monarchy, Federation', 'Albert II', 'BE', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2274950.0563538624!2d2.3860736448475754!3d50.64628574436701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c17d64edf39797%3A0x47ebf2b439e60ff2!2z0JHQtdC70YzQs9C40Y8!5e0!3m2!1sru!2see!4v161166024'),
-('GBR', 'United Kingdom', 'Europe', 'British Islands', 1066, 59623400, 'Constitutional Monarchy', 'Elisabeth II', 'GB', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9555431.332362521!2d-13.439755536289026!3d54.21780770528804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2z0JLQtdC70LjQutC-0LHRgNC40YLQsNC90LjRjw!5e0!3m2!1sr'),
-('BGR', 'Bulgaria', 'Europe', 'Eastern Europe', 1908, 8190900, 'Republic', 'Petar Stojanov', 'BG', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3002383.6758381096!2d23.295568547318023!3d42.703396623506634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a8fec1c85bf089%3A0xa01269bf4c10!2z0JHQvtC70LPQsNGA0LjRjw!5e0!3m2!1sru!2see!4v161166031'),
-('ESP', 'Spain', 'Europe', 'Southern Europe', 1492, 39441700, 'Constitutional Monarchy', 'Juan Carlos I', 'ES', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12544724.49331993!2d-12.711148041014157!3d39.85907369064144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc42e3783261bc8b%3A0xa6ec2c940768a3ec!2z0JjRgdC_0LDQvdC40Y8!5e0!3m2!1sru!2see!4v1611660368'),
-('ITA', 'Italy', 'Europe', 'Southern Europe', 1861, 57680000, 'Republic', 'Carlo Azeglio Ciampi', 'IT', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6147785.693533892!2d8.215163993376212!3d41.20327678223214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12d4fe82448dd203%3A0xe22cf55c24635e6f!2z0JjRgtCw0LvQuNGP!5e0!3m2!1sru!2see!4v1611660394005!'),
-('JPN', 'Japan', 'Asia', 'Eastern Asia', -660, 126714000, 'Constitutional Monarchy', 'Akihito', 'JP', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13755987.019302383!2d129.41576390669522!3d32.675533154267875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34674e0fd77f192f%3A0xf54275d47c665244!2z0K_Qv9C-0L3QuNGP!5e0!3m2!1sru!2see!4v16116604159'),
-('CAN', 'Canada', 'North America', 'North America', 1867, 31147000, 'Constitutional Monarchy, Federation', 'Elisabeth II', 'CA', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d41263875.91515325!2d-130.03020617342113!3d50.85807027283828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4b0d03d337cc6ad9%3A0x9968b72aa2438fa5!2z0JrQsNC90LDQtNCw!5e0!3m2!1sru!2see!4v161166043874'),
-('CUB', 'Cuba', 'North America', 'Caribbean', 1902, 11201000, 'Socialistic Republic', 'Fidel Castro Ruz', 'CU', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7604934.573865879!2d-84.06536882167303!3d21.454898711445892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88cd49070f7a4cb5%3A0x798cf7529110a41a!2z0JrRg9Cx0LA!5e0!3m2!1sru!2see!4v1611660462572!5m2'),
-('LTU', 'Lithuania', 'Europe', 'Baltic Countries', 1991, 3698500, 'Republic', 'Valdas Adamkus', 'LT', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2334449.988762956!2d21.63619838070662!3d55.15289284975768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dd94140f33be13%3A0xf30a54d3a55dbab9!2z0JvQuNGC0LLQsA!5e0!3m2!1sru!2see!4v1611660486857!5m'),
-('LVA', 'Latvia', 'Europe', 'Baltic Countries', 1991, 2424200, 'Republic', 'Vaira Vike-Freiberga', 'LV', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2233528.693784201!2d22.297026969334837!3d56.860001886216125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e930677b8a9afd%3A0xcfcd68f2fc10!2z0JvQsNGC0LLQuNGP!5e0!3m2!1sru!2see!4v1611660507323!5m'),
-('NOR', 'Norway', 'Europe', 'Nordic Countries', 1905, 4478500, 'Constitutional Monarchy', 'Harald V', 'NO', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7090659.785838596!2d8.764548705351366!3d64.28570120705889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x461268458f4de5bf%3A0xa1b03b9db864d02b!2z0J3QvtGA0LLQtdCz0LjRjw!5e0!3m2!1sru!2see!4v16116605'),
-('FRA', 'France', 'Europe', 'Western Europe', 843, 59225700, 'Republic', 'Jacques Chirac', 'FR', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5662695.165145999!2d-2.4437114161728757!3d46.13107143246225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54a02933785731%3A0x6bfd3f96c747d9f7!2z0KTRgNCw0L3RhtC40Y8!5e0!3m2!1sru!2see!4v1611660544'),
-('FIN', 'Finland', 'Europe', 'Nordic Countries', 1917, 5171300, 'Republic', 'Tarja Halonen', 'FI', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3475848.1011396972!2d21.532290517718792!3d64.82524117769093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4681cadf4b32f6dd%3A0x146d63c75a810!2z0KTQuNC90LvRj9C90LTQuNGP!5e0!3m2!1sru!2see!4v1611660'),
-('EST', 'Estonia', 'Europe', 'Baltic Countries', 1991, 1439200, 'Republic', 'Lennart Meri', 'EE', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3475848.1011396972!2d21.532290517718792!3d64.82524117769093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4692949c82a04bfd%3A0x40ea9fba4fb425c3!2z0K3RgdGC0L7QvdC40Y8!5e0!3m2!1sru!2see!4v161166057'),
-('USA', 'United States', 'North America', 'North America', 1776, 278357000, 'Federal Republic', 'George W. Bush', 'US', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26370217.253173735!2d-113.69600376348694!3d36.214692757905205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2z0KHQvtC10LTQuNC90LXQvdC90YvQtSDQqNGC0LDRgtGLINC'),
-('ATA', 'Antarctica', 'Antarctica', 'Antarctica', NULL, 0, 'Co-administrated', NULL, 'AQ', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d44757969.84949325!2d-73.49262485004327!3d-46.78835439055095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa4b9967b3390754b%3A0x6e52be1f740f2075!2z0JDQvdGC0LDRgNC60YLQuNC60LA!5e0!3m2!1sru!2see!4v1');
+INSERT INTO `country` (`Code`, `Name`, `ContinentId`, `Region`, `IndepYear`, `Population`, `GovernmentForm`, `HeadOfState`, `Code2`, `created_at`, `map_src`) VALUES
+('BEL', 'Belgium', 2, 'Western Europe', 1830, 10239000, 'Constitutional Monarchy, Federation', 'Albert II', 'BE', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2274950.0563538624!2d2.3860736448475754!3d50.64628574436701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c17d64edf39797%3A0x47ebf2b439e60ff2!2z0JHQtdC70YzQs9C40Y8!5e0!3m2!1sru!2see!4v161166024'),
+('GBR', 'United Kingdom', 2, 'British Islands', 1066, 59623400, 'Constitutional Monarchy', 'Elisabeth II', 'GB', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9555431.332362521!2d-13.439755536289026!3d54.21780770528804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2z0JLQtdC70LjQutC-0LHRgNC40YLQsNC90LjRjw!5e0!3m2!1sr'),
+('BGR', 'Bulgaria', 2, 'Eastern Europe', 1908, 8190900, 'Republic', 'Petar Stojanov', 'BG', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3002383.6758381096!2d23.295568547318023!3d42.703396623506634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a8fec1c85bf089%3A0xa01269bf4c10!2z0JHQvtC70LPQsNGA0LjRjw!5e0!3m2!1sru!2see!4v161166031'),
+('ESP', 'Spain', 2, 'Southern Europe', 1492, 39441700, 'Constitutional Monarchy', 'Juan Carlos I', 'ES', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12544724.49331993!2d-12.711148041014157!3d39.85907369064144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc42e3783261bc8b%3A0xa6ec2c940768a3ec!2z0JjRgdC_0LDQvdC40Y8!5e0!3m2!1sru!2see!4v1611660368'),
+('ITA', 'Italy', 2, 'Southern Europe', 1861, 57680000, 'Republic', 'Carlo Azeglio Ciampi', 'IT', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6147785.693533892!2d8.215163993376212!3d41.20327678223214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12d4fe82448dd203%3A0xe22cf55c24635e6f!2z0JjRgtCw0LvQuNGP!5e0!3m2!1sru!2see!4v1611660394005!'),
+('JPN', 'Japan', 1, 'Eastern Asia', -660, 126714000, 'Constitutional Monarchy', 'Akihito', 'JP', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13755987.019302383!2d129.41576390669522!3d32.675533154267875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34674e0fd77f192f%3A0xf54275d47c665244!2z0K_Qv9C-0L3QuNGP!5e0!3m2!1sru!2see!4v16116604159'),
+('CAN', 'Canada', 3, 'North America', 1867, 31147000, 'Constitutional Monarchy, Federation', 'Elisabeth II', 'CA', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d41263875.91515325!2d-130.03020617342113!3d50.85807027283828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4b0d03d337cc6ad9%3A0x9968b72aa2438fa5!2z0JrQsNC90LDQtNCw!5e0!3m2!1sru!2see!4v161166043874'),
+('CUB', 'Cuba', 3, 'Caribbean', 1902, 11201000, 'Socialistic Republic', 'Fidel Castro Ruz', 'CU', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7604934.573865879!2d-84.06536882167303!3d21.454898711445892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88cd49070f7a4cb5%3A0x798cf7529110a41a!2z0JrRg9Cx0LA!5e0!3m2!1sru!2see!4v1611660462572!5m2'),
+('LTU', 'Lithuania', 2, 'Baltic Countries', 1991, 3698500, 'Republic', 'Valdas Adamkus', 'LT', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2334449.988762956!2d21.63619838070662!3d55.15289284975768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dd94140f33be13%3A0xf30a54d3a55dbab9!2z0JvQuNGC0LLQsA!5e0!3m2!1sru!2see!4v1611660486857!5m'),
+('LVA', 'Latvia', 2, 'Baltic Countries', 1991, 2424200, 'Republic', 'Vaira Vike-Freiberga', 'LV', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2233528.693784201!2d22.297026969334837!3d56.860001886216125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e930677b8a9afd%3A0xcfcd68f2fc10!2z0JvQsNGC0LLQuNGP!5e0!3m2!1sru!2see!4v1611660507323!5m'),
+('NOR', 'Norway', 2, 'Nordic Countries', 1905, 4478500, 'Constitutional Monarchy', 'Harald V', 'NO', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7090659.785838596!2d8.764548705351366!3d64.28570120705889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x461268458f4de5bf%3A0xa1b03b9db864d02b!2z0J3QvtGA0LLQtdCz0LjRjw!5e0!3m2!1sru!2see!4v16116605'),
+('FRA', 'France', 2, 'Western Europe', 843, 59225700, 'Republic', 'Jacques Chirac', 'FR', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5662695.165145999!2d-2.4437114161728757!3d46.13107143246225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54a02933785731%3A0x6bfd3f96c747d9f7!2z0KTRgNCw0L3RhtC40Y8!5e0!3m2!1sru!2see!4v1611660544'),
+('FIN', 'Finland', 2, 'Nordic Countries', 1917, 5171300, 'Republic', 'Tarja Halonen', 'FI', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3475848.1011396972!2d21.532290517718792!3d64.82524117769093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4681cadf4b32f6dd%3A0x146d63c75a810!2z0KTQuNC90LvRj9C90LTQuNGP!5e0!3m2!1sru!2see!4v1611660'),
+('EST', 'Estonia', 2, 'Baltic Countries', 1991, 1439200, 'Republic', 'Lennart Meri', 'EE', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3475848.1011396972!2d21.532290517718792!3d64.82524117769093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4692949c82a04bfd%3A0x40ea9fba4fb425c3!2z0K3RgdGC0L7QvdC40Y8!5e0!3m2!1sru!2see!4v161166057'),
+('USA', 'United States', 3, 'North America', 1776, 278357000, 'Federal Republic', 'George W. Bush', 'US', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26370217.253173735!2d-113.69600376348694!3d36.214692757905205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2z0KHQvtC10LTQuNC90LXQvdC90YvQtSDQqNGC0LDRgtGLINC'),
+('ATA', 'Antarctica', 5, 'Antarctica', NULL, 0, 'Co-administrated', NULL, 'AQ', '2021-01-26', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d44757969.84949325!2d-73.49262485004327!3d-46.78835439055095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa4b9967b3390754b%3A0x6e52be1f740f2075!2z0JDQvdGC0LDRgNC60YLQuNC60LA!5e0!3m2!1sru!2see!4v1'),
+('KAZ', '-', 1, '-', NULL, 0, '-', NULL, '-', '2021-01-28', NULL),
+('KEN', 'Kenya', 4, '-', NULL, 0, '-', NULL, '-', '2021-01-28', NULL),
+('CAF', 'Central African Republic', 4, '-', NULL, 0, '-', NULL, '-', '2021-01-28', NULL),
+('CHN', 'China', 1, '-', NULL, 0, '-', NULL, '-', '2021-01-28', NULL);
 
 -- --------------------------------------------------------
 
@@ -1364,6 +1391,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'test', 'test@test.ee', NULL, '$2y$10$HGXfA2pyp5IfQ8FSSeLDCOxoNAx0otsJCuUOVI0iW3FJSsxWixXIC', NULL, '2021-01-27 08:48:44', '2021-01-27 08:48:44');
+
+--
 -- Индексы сохранённых таблиц
 --
 
@@ -1372,6 +1406,12 @@ CREATE TABLE `users` (
 --
 ALTER TABLE `city`
   ADD PRIMARY KEY (`ID`);
+
+--
+-- Индексы таблицы `continent`
+--
+ALTER TABLE `continent`
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- Индексы таблицы `country`
@@ -1416,6 +1456,12 @@ ALTER TABLE `city`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4080;
 
 --
+-- AUTO_INCREMENT для таблицы `continent`
+--
+ALTER TABLE `continent`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT для таблицы `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -1431,7 +1477,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

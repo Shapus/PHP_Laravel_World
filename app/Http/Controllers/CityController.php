@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\Country;
+use App\Continent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class CityController extends Controller
 {
@@ -16,8 +19,19 @@ class CityController extends Controller
     public function index()
     {
         //
-        $cities = City::orderBy('CountryCode', 'asc')->latest()->paginate(8);
-        return view('Cities.citiesList', ['cities'=>$cities])
+        if(isset($_GET['continent'])){
+            $cities = City::whereIn('CountryCode',function($query){
+                $query->from('country')->select('Code')->where('ContinentId',$_GET['continent']);
+            })
+            ->orderBy('CountryCode', 'asc')->latest()->paginate(8)->appends(request()->query());
+        }
+        else{
+            $cities = City::orderBy('CountryCode', 'asc')->latest()->paginate(8)->appends(request()->query());
+        }
+        $continents = Continent::orderBy('ContinentName')->get();
+        $url = URL::current();
+
+        return view('Cities.citiesList', ['cities'=>$cities, 'continents'=>$continents, 'url'=>$url])
                 ->with('i', (request()->input('page',1)-1)*8);
     }
 

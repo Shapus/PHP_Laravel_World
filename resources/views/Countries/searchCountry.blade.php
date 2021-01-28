@@ -30,7 +30,7 @@
             <th style="width:10%">Country name</th>
             <th style="width:10%">IndepYear</th>
             <th style="width:20%">Continent</th>
-            <th style="width:10%">Detail</th>
+            <th style="width:10%"></th>
             <th style="width:10%"></th>
         </tr>
         @foreach ($countries as $country)
@@ -38,7 +38,7 @@
             <td>{{$country->Code}}</td>
             <td>{{$country->Name}}</td>
             <td>{{$country->IndepYear}}</td>
-            <td>{{$country->Continent}}</td>
+            <td>{{$country->ContinentName}}</td>
             <td>
                 <a href="{{ action('CountryController@show', $country->Code)}}" title="show">Detail</a>
             </td>
