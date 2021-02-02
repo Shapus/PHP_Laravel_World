@@ -12,6 +12,6 @@ class Continent extends Model
 
     protected $fillable = [
         'Id',
-        'Name'
+        'ContinentName'
     ];
 }

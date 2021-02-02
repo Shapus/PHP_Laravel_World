@@ -19,6 +19,8 @@ Route::get('/', function () {
 });
 
 Route::get('/countries', 'CountryController@index');
+Route::get('/countries/filter', 'CountryController@countryFilter');
+Route::get('/countries/filterResult', 'CountryController@countryFilterResult');
 Route::get('/countries/search', 'CountryController@search');
 Route::get('/countries/detail/{country}', 'CountryController@show');
 Route::get('/cities', 'CityController@index');

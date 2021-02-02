@@ -42,6 +42,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{action('CityController@index')}}">Cities</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{action('CountryController@countryFilter')}}">Filter</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

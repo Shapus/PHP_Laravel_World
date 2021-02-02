@@ -12,9 +12,9 @@
     </div>
     
     <div class="row">
-        @include('continents.ContinentsNav', ['continents' => $continents, 'url' => $url])
+        @include('countries.filter', ['continents' => $continents, 'governments' => $governments, 'minIndepYear' => $minIndepYear, 'maxIndepYear' => $maxIndepYear])
         @if (count($countries ?? '') > 0)
-        <div class="col-md-10">
+        <div class="col-md-8">
             <table class="table table-striped">
                 <tr>
                     <th style="width:10%">Code</th>

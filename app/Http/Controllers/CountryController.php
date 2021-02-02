@@ -124,4 +124,33 @@ class CountryController extends Controller
         $url = URL::current();
         return view('countries.searchCountry', ['countries'=>$countries, 'cities'=>$cities,'request'=>$request, 'continents'=>$continents, 'url'=>$url]);
     }
+
+
+     /**
+     * 
+     * Filter data
+     *
+     * 
+     */
+    public function countryFilter(Request $request){
+        $continent = $request->input('continent');
+        $government = $request->input('government');
+        $minYear = $request->input('minIndepYear');
+        $maxYear = $request->input('maxIndepYear');
+        $countries = Country::where('ContinentId','=','{$continent}')
+                            ->where('GovernmentForm','LIKE','{$government}%')
+                            ->where('IndepYear','>=','{$minYear}')
+                            ->where('IndepYear','<=','{$maxYear}')
+                            ->latest()->paginate(8)->appends(request()->query());;
+        $continents = Continent::get();
+        $governments = Country::distinct()->get('GovernmentForm');
+        $minIndepYear = Country::whereNotNull('IndepYear')->orderBy('IndepYear','asc')->first();
+        $maxIndepYear = Country::whereNotNull('IndepYear')->orderBy('IndepYear','desc')->first();
+        //$countries = Country::join('continent', 'country.ContinentId','=','continent.Id')->orderBy('Code', 'asc')->latest()->paginate(8)->appends(request()->query());
+        return view('countries.countryFilter', ['continents'=>$continents, 'governments'=>$governments, 'minIndepYear'=>$minIndepYear, 'maxIndepYear'=>$maxIndepYear, 'countries'=>$countries]);
+    }
+    public function filterResult(){
+        
+        
+    }
 }
